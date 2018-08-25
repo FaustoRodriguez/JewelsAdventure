@@ -110,9 +110,6 @@ public class Tablero extends JPanel implements Runnable, MouseListener {
 		}
 	}
 	public void cambiarPosiciones(int x,int y,int x2,int y2) {
-		//8*8
-		//Incluir contador de tiempo
-		//
 		Joya contenedor;
 		contenedor=this.elemento[x][y];
 		this.elemento[x][y]=this.elemento[x2][y2];
@@ -136,28 +133,27 @@ public class Tablero extends JPanel implements Runnable, MouseListener {
 				}
 			}
 		}
-	}
-	public void eliminarColumna(int numColumna,int inicio,int alto) {
-		System.out.println("Columna "+numColumna+","+inicio+"  "+alto);
-		Joya nuevas[]=new Joya[alto];
-		if(!iniciando) {
-			setPuntaje(alto);
-		}
-		if(inicio>2)
-			for(int i=0,j=alto;i<=alto;++i,--j) {
-				System.out.println(i+","+alto);
-				this.elemento[numColumna][inicio+j]=this.elemento[numColumna][inicio-i];
-				try {
-					this.elemento[numColumna][inicio-i]=this.elemento[numColumna][inicio-i-alto];
-				}
-				catch(ArrayIndexOutOfBoundsException e) {
-					this.elemento[numColumna][inicio-i]=nuevoElemento();
-				}
-			}
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void eliminarColumna(int numColumna,int inicio,int alto) {
+		if(!iniciando) {
+			setPuntaje(alto);
+		}
+		for(int i=0,j=alto;i<alto;i++,--j) {
+			try {
+				this.elemento[numColumna][inicio+i]=this.elemento[numColumna][inicio-j];
+				this.elemento[numColumna][inicio-j]=nuevoElemento();
+			}catch (ArrayIndexOutOfBoundsException e) {
+				this.elemento[numColumna][inicio+i]=nuevoElemento();
+			}
+		}
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		this.repaint();
@@ -202,9 +198,6 @@ public class Tablero extends JPanel implements Runnable, MouseListener {
 					e.printStackTrace();
 				}
 			}
-			String c[]= {
-					"amarillo","azul","morado","naranja","plata","rojo","verde"
-			};
 			for(int j=0;j<elemento.length;j++) {
 				int color=elemento[0][j].getColor();
 				int fila=j,inicio=0,largo=0;

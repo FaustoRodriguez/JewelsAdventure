@@ -1,14 +1,17 @@
+import java.awt.Menu;
+import java.awt.MenuBar;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class JewelsAdventure extends JFrame {
-	
+	Tablero tablero;
 	public JewelsAdventure(String usuario) {
 			super();
 			this.setTitle("Jewels Adventure");
 			this.setIconImage(Toolkit.getDefaultToolkit().getImage("verde.png"));
-			this.add(new Tablero(usuario));
+			tablero=new Tablero(usuario);
+			this.add(tablero);
 			this.pack();
 			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 			this.setResizable(false);
